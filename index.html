@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMNIX EMPIRE | Premium Entertainment Hub</title>
+    <meta name="description"
+        content="OMNIX EMPIRE - The ultimate destination for Movies, Live TV, and Sports. Download OMNIX OTT v1.9 now.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <nav class="navbar" id="navbar">
+        <div class="container nav-content">
+            <a href="#" class="logo-text">OMNIX EMPIRE</a>
+            <div class="nav-links">
+                <a href="#featured" class="nav-link">Featured</a>
+                <a href="#channels" class="nav-link">Channels</a>
+                <a href="javascript:void(0)" onclick="verifyAgeAndEnter()" class="nav-link" style="color: #ff0055;">18+
+                    Adult</a>
+                <a href="https://t.me/omnix_Empire" target="_blank" class="btn-tg">
+                    <i class="fab fa-telegram-plane"></i> Join Telegram
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container reveal">
+            <img src="omnix-empire-logo.jpg" alt="OMNIX EMPIRE" class="hero-logo">
+            <h1>Elevate Your<br>Entertainment Experience</h1>
+            <p class="hero-p">Experience the future of streaming with OMNIX EMPIRE. High-speed servers, premium content,
+                and a world-class interface designed for you.</p>
+            <div class="hero-actions">
+                <a href="#featured" class="btn btn-primary">Download OMNIX OTT</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="cross-platform" class="container reveal">
+        <div class="section-title">
+            <span class="badge badge-accent">Multi-Platform</span>
+            <h2>Seamless on Every Screen</h2>
+            <p>Enjoy OMNIX OTT perfectly optimized for your Android Mobile, Tablet, Firestick, and Android TV.</p>
+        </div>
+        
+        <div class="devices-showcase">
+            <div class="device-wrapper device-tv-wrapper" style="width: 100%;">
+                <img src="OMNIX_Wireframe_TV_Mobile.png" alt="OMNIX on TV and Mobile" class="device-img-tv" style="box-shadow: none; filter: drop-shadow(0 30px 60px rgba(0,0,0,0.6));">
+            </div>
+        </div>
+    </section>
+
+    <section id="featured" class="container reveal">
+        <div class="section-title">
+            <span class="badge badge-primary">Featured Release</span>
+            <h2>OMNIX OTT v2.7</h2>
+            <p>Our most powerful version yet, optimized for all Android devices.</p>
+        </div>
+
+        <div class="app-card-wrapper">
+            <div class="premium-app-card">
+
+                <!-- 1. Header: Logo & Name -->
+                <div class="app-header">
+                    <div class="app-icon-wrapper">
+                        <img src="omnix-ott-logo.png"
+                            alt="OMNIX OTT" class="app-icon">
+                    </div>
+                    <div class="app-title-section">
+                        <span class="badge badge-accent">LIVE NOW</span>
+                        <h3 class="app-title">OMNIX OTT v2.7</h3>
+                        <p class="app-desc">The Ultimate All-in-One Entertainment Hub for Movies, TV Shows, Live TV,
+                            Sports, Anime, and More — Available on Mobile, Tablet, Firestick, and Android TV.</p>
+                        <div style="margin-top: 5px; font-size: 0.85em; color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
+                            <span>* Terms and condition apply</span>
+                            <button onclick="openDmcaModal()" class="btn btn-secondary" style="padding: 2px 8px; font-size: 0.75em; cursor: pointer; border-radius: 4px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);">Click to view</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. App Info Stats -->
+                <div class="app-stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-icon"><i class="fas fa-file-download"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-label">Size</div>
+                            <div class="stat-value">34.0 MB</div>
+                        </div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-icon"><i class="fas fa-code-branch"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-label">Version</div>
+                            <div class="stat-value">v2.7</div>
+                        </div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-label">Update</div>
+                            <div class="stat-value">08-08-2026</div>
+                        </div>
+                    </div>
+                    <div class="stat-box highlight">
+                        <div class="stat-icon"><i class="fas fa-fire"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-label">Total Downloads</div>
+                            <div class="stat-value" id="download-count">Loading...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Latest Download CTA -->
+                <div class="app-download-cta">
+                    <h4 class="cta-title"><i class="fas fa-cloud-download-alt"
+                            style="color: var(--primary); margin-right: 12px;"></i> Download Latest Version</h4>
+                    <div class="download-buttons" style="display:flex; flex-wrap:wrap; gap:15px; align-items: center; justify-content: center;">
+                        
+                        <a href="https://www.mediafire.com/file/d0xgb3zpqfjpi9l/OMNIX-OTT_v2.7_Build-29_2026-09-09.apk/file" target="_blank"
+                            onclick="trackDownload()" class="dl-btn" style="background: linear-gradient(135deg, #0078FF 0%, #0056b3 100%); display: flex; align-items: center; justify-content: center; width: auto; padding: 0 25px; border-radius: 12px; color: white; text-decoration: none; font-weight: bold; font-size: 1.1rem; font-family: 'Space Grotesk', sans-serif; height: 55px; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 8px 20px rgba(0, 120, 255, 0.4); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                            <i class="fas fa-fire" style="margin-right: 10px; font-size: 1.4rem;"></i> MediaFire
+                        </a>
+
+                        <a href="https://pixeldrain.dev/api/file/8V4d8qmw?download" target="_blank"
+                            onclick="trackDownload()" class="dl-btn" style="background: linear-gradient(135deg, #00b894 0%, #00876b 100%); display: flex; align-items: center; justify-content: center; width: auto; padding: 0 25px; border-radius: 12px; color: white; text-decoration: none; font-weight: bold; font-size: 1.1rem; font-family: 'Space Grotesk', sans-serif; height: 55px; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 8px 20px rgba(0, 184, 148, 0.4); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                            <i class="fas fa-tint" style="margin-right: 10px; font-size: 1.4rem;"></i> PixelDrain
+                        </a>
+
+                    </div>
+                </div>
+
+                <!-- 4. Features & Past Versions -->
+                <div class="app-sections-grid">
+                    <div class="app-features-wrapper" style="grid-column: 1 / -1; width: 100%;">
+                        <h4 class="cta-title" style="text-align: center; margin-bottom: 2rem;"><i class="fas fa-layer-group" style="color: var(--primary); margin-right: 10px;"></i> Application Features</h4>
+                        <div class="features-card-grid">
+                            <div class="feature-card">
+                                <div class="icon-circle"><i class="fas fa-film"></i></div>
+                                <span>Watch 15000+ Movies, Series & Shows</span>
+                            </div>
+                            <div class="feature-card">
+                                <div class="icon-circle"><i class="fas fa-tv"></i></div>
+                                <span>Watch Live TV Channels & Events</span>
+                            </div>
+                            <div class="feature-card">
+                                <div class="icon-circle"><i class="fas fa-futbol"></i></div>
+                                <span>Comprehensive Live Sports Coverage</span>
+                            </div>
+                            <div class="feature-card">
+                                <div class="icon-circle"><i class="fas fa-tachometer-alt"></i></div>
+                                <span>Adaptive Streaming Quality</span>
+                            </div>
+                            <div class="feature-card">
+                                <div class="icon-circle"><i class="fas fa-clone"></i></div>
+                                <span>Picture-in-Picture Functionality</span>
+                            </div>
+                            <div class="feature-card">
+                                <div class="icon-circle"><i class="fas fa-laptop-house"></i></div>
+                                <span>Cross-Platform Compatibility</span>
+                            </div>
+                            <div class="feature-card">
+                                <div class="icon-circle"><i class="fas fa-sign-in-alt"></i></div>
+                                <span>IPTV Login Support</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section id="channels" class="container reveal">
+        <div class="section-title">
+            <span class="badge badge-primary">Community</span>
+            <h2>🌟 𝗪𝗲𝗹𝗰𝗼𝗺𝗲 𝘁𝗼 𝘁𝗵𝗲 𝗢𝗳𝗳𝗶𝗰𝗶𝗮𝗹 𝗢𝗠𝗡𝗜𝗫 𝗘𝗠𝗣𝗜𝗥𝗘 𝗡𝗲𝘁𝘄𝗼𝗿𝗸! 🌟</h2>
+            <p>Stay connected with us across all our official channels and platforms for the latest updates, movies,
+                apps, IPTV access, and community discussions. 👇</p>
+        </div>
+
+        <div class="channel-grid">
+            <!-- 1. OMNIX OFFICIAL ABOUT -->
+            <a href="https://t.me/omnixempire" target="_blank" class="channel-card glass">
+                <div class="channel-icon"><i class="fas fa-shield-alt"></i></div>
+                <div>
+                    <h4>🛡 𝕆𝕄ℕ𝕀𝕏 𝕆𝔽𝔽𝕀ℂ𝕀𝔸𝕃 𝔸𝔹𝕆𝕌𝕋</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">Official information and links.</p>
+                </div>
+            </a>
+
+            <!-- 2. OMNIX EMPIRE -->
+            <a href="https://t.me/OmnixEmpireOfficial" target="_blank" class="channel-card glass">
+                <div class="channel-icon"><i class="fab fa-telegram-plane"></i></div>
+                <div>
+                    <h4>🌐 𝕆𝕄ℕ𝕀𝕏 𝔼𝕄ℙ𝕀ℝ𝔼</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">For new apps, website updates & major announcements.</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-socials">
+                <a href="https://t.me/omnixempire" target="_blank" class="social-circle"><i class="fab fa-telegram-plane"></i></a>
+                <a href="https://www.instagram.com/omnix_ott/" target="_blank" class="social-circle"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@omnixgaming28" target="_blank" class="social-circle"><i class="fab fa-youtube"></i></a>
+            </div>
+            
+            <div class="footer-links">
+                <a href="#">Terms & Conditions</a>
+                <span class="separator">|</span>
+                <a href="#">Privacy Policy</a>
+                <span class="separator">|</span>
+                <a href="#">About Us</a>
+                <span class="separator">|</span>
+                <a href="javascript:void(0)" onclick="openDmcaModal()">DMCA</a>
+                <span class="separator">|</span>
+                <a href="#">Contact Us</a>
+            </div>
+            
+            <div class="footer-disclaimer">
+                <p><strong>OMNIX</strong> is not affiliated with any third-party brands, platforms, or services mentioned in the app.</p>
+                <p>All rights reserved.<br>Designed & Developed by <strong>OMNIX EMPIRE</strong></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        function verifyAgeAndEnter() {
+            if (confirm("WARNING: This section contains Adult (18+) content.\n\nAre you 18 years or older? Click OK if yes.")) {
+                window.location.href = 'Adult18.html';
+            }
+        }
+
+        // Fetch current download count on load
+        document.addEventListener('DOMContentLoaded', () => {
+            // OTT App Downloads
+            fetch('https://api.counterapi.dev/v1/omnixempire/downloads/')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('download-count').innerText = data.count || 0;
+                })
+                .catch(error => {
+                    console.error('Error fetching count:', error);
+                    document.getElementById('download-count').innerText = "0";
+                });
+
+        });
+
+        // Track a new download
+        function trackDownload(type) {
+            const endpoint = type === 'infox' ? 'infox_downloads' : 'downloads';
+            const elementId = type === 'infox' ? 'infox-download-count' : 'download-count';
+
+            fetch(`https://api.counterapi.dev/v1/omnixempire/${endpoint}/up`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.count) {
+                        document.getElementById(elementId).innerText = data.count;
+                    }
+                })
+                .catch(error => console.error('Error tracking download:', error));
+        }
+    </script>
+
+    <!-- DMCA & Fair Use Modal -->
+    <style>
+        .dmca-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+        .dmca-modal-content {
+            background-color: #1a1a2e; /* Dark theme matching */
+            margin: 10% auto;
+            padding: 30px;
+            border: 1px solid #ff4757;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            color: #f1f2f6;
+            font-family: Arial, sans-serif;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
+        }
+        .dmca-modal-content h3 {
+            color: #ff4757;
+            margin-top: 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+        }
+        .dmca-modal-content p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+        }
+        .dmca-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .dmca-close-btn:hover {
+            color: white;
+        }
+    </style>
+
+    <div id="dmcaModal" class="dmca-modal">
+        <div class="dmca-modal-content">
+            <span class="dmca-close-btn" onclick="closeDmcaModal()">&times;</span>
+            <h3>DMCA & Fair Use Disclaimer</h3>
+            <p><strong>Omnix OTT</strong> is an independent aggregation platform. We only index, share, and organize content, links, and data that are already freely and publicly available on the internet. We do not host any copyrighted media on our own servers. Under the guidelines of fair use and public domain, accessing and sharing publicly available information is not unlawful.</p>
+            <p><strong>Notice and Takedown Policy:</strong> If you are a copyright owner, a company representative, or a government authority, and you have objections to any specific content listed on our platform, you <strong>must contact the Omnix Empire administration directly first</strong>. Upon receiving a valid removal request, we will promptly take down the disputed data. Taking direct legal action, attempting to track the application, or initiating takedowns without prior communication is unwarranted and ineffective, as we are fully cooperative and merely indexing content that is already public on the web.</p>
+        </div>
+    </div>
+
+    <script>
+        function openDmcaModal() {
+            document.getElementById('dmcaModal').style.display = 'block';
+        }
+        function closeDmcaModal() {
+            document.getElementById('dmcaModal').style.display = 'none';
+        }
+        // Close modal if user clicks outside of it
+        window.onclick = function(event) {
+            var modal = document.getElementById('dmcaModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+
+</html>
