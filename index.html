@@ -57,7 +57,7 @@
     <section id="featured" class="container reveal">
         <div class="section-title">
             <span class="badge badge-primary">Featured Release</span>
-            <h2>OMNIX OTT v2.7</h2>
+            <h2>OMNIX OTT</h2>
             <p>Our most powerful version yet, optimized for all Android devices.</p>
         </div>
 
@@ -72,13 +72,9 @@
                     </div>
                     <div class="app-title-section">
                         <span class="badge badge-accent">LIVE NOW</span>
-                        <h3 class="app-title">OMNIX OTT v2.7</h3>
+                        <h3 class="app-title">OMNIX OTT</h3>
                         <p class="app-desc">The Ultimate All-in-One Entertainment Hub for Movies, TV Shows, Live TV,
                             Sports, Anime, and More — Available on Mobile, Tablet, Firestick, and Android TV.</p>
-                        <div style="margin-top: 5px; font-size: 0.85em; color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
-                            <span>* Terms and condition apply</span>
-                            <button onclick="openDmcaModal()" class="btn btn-secondary" style="padding: 2px 8px; font-size: 0.75em; cursor: pointer; border-radius: 4px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);">Click to view</button>
-                        </div>
                     </div>
                 </div>
 
@@ -95,21 +91,14 @@
                         <div class="stat-icon"><i class="fas fa-code-branch"></i></div>
                         <div class="stat-info">
                             <div class="stat-label">Version</div>
-                            <div class="stat-value">v2.7</div>
+                            <div class="stat-value">2.9(31)</div>
                         </div>
                     </div>
                     <div class="stat-box">
                         <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
                         <div class="stat-info">
                             <div class="stat-label">Update</div>
-                            <div class="stat-value">08-08-2026</div>
-                        </div>
-                    </div>
-                    <div class="stat-box highlight">
-                        <div class="stat-icon"><i class="fas fa-fire"></i></div>
-                        <div class="stat-info">
-                            <div class="stat-label">Total Downloads</div>
-                            <div class="stat-value" id="download-count">Loading...</div>
+                            <div class="stat-value">19-09-2026</div>
                         </div>
                     </div>
                 </div>
@@ -118,18 +107,23 @@
                 <div class="app-download-cta">
                     <h4 class="cta-title"><i class="fas fa-cloud-download-alt"
                             style="color: var(--primary); margin-right: 12px;"></i> Download Latest Version</h4>
-                    <div class="download-buttons" style="display:flex; flex-wrap:wrap; gap:15px; align-items: center; justify-content: center;">
+                    <div class="download-buttons" style="display:flex; flex-direction:column; gap:15px; align-items: center; justify-content: center;">
                         
-                        <a href="https://www.mediafire.com/file/d0xgb3zpqfjpi9l/OMNIX-OTT_v2.7_Build-29_2026-09-09.apk/file" target="_blank"
-                            onclick="trackDownload()" class="dl-btn" style="background: linear-gradient(135deg, #0078FF 0%, #0056b3 100%); display: flex; align-items: center; justify-content: center; width: auto; padding: 0 25px; border-radius: 12px; color: white; text-decoration: none; font-weight: bold; font-size: 1.1rem; font-family: 'Space Grotesk', sans-serif; height: 55px; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 8px 20px rgba(0, 120, 255, 0.4); transition: transform 0.3s ease, box-shadow 0.3s ease;">
-                            <i class="fas fa-fire" style="margin-right: 10px; font-size: 1.4rem;"></i> MediaFire
-                        </a>
+                        <button onclick="document.getElementById('download-servers').style.display = 'flex'; this.style.display = 'none';" class="dl-btn" style="background: linear-gradient(135deg, #ff0055 0%, #cc0044 100%); display: flex; align-items: center; justify-content: center; width: auto; padding: 0 35px; border-radius: 12px; color: white; text-decoration: none; font-weight: bold; font-size: 1.2rem; font-family: 'Space Grotesk', sans-serif; height: 60px; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 8px 20px rgba(255, 0, 85, 0.4); transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;">
+                            <i class="fas fa-download" style="margin-right: 10px; font-size: 1.4rem;"></i> Download Now
+                        </button>
 
-                        <a href="https://pixeldrain.dev/api/file/8V4d8qmw?download" target="_blank"
-                            onclick="trackDownload()" class="dl-btn" style="background: linear-gradient(135deg, #00b894 0%, #00876b 100%); display: flex; align-items: center; justify-content: center; width: auto; padding: 0 25px; border-radius: 12px; color: white; text-decoration: none; font-weight: bold; font-size: 1.1rem; font-family: 'Space Grotesk', sans-serif; height: 55px; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 8px 20px rgba(0, 184, 148, 0.4); transition: transform 0.3s ease, box-shadow 0.3s ease;">
-                            <i class="fas fa-tint" style="margin-right: 10px; font-size: 1.4rem;"></i> PixelDrain
-                        </a>
+                        <div id="download-servers" style="display:none; flex-wrap:wrap; gap:15px; align-items: center; justify-content: center;">
+                            <a href="https://www.mediafire.com/file/rehfb0et1ozbddh/OMNIX-OTT_v2.9_Build-31_2026-09-19.apk/file" target="_blank"
+                                onclick="trackDownload()" class="dl-btn" style="background: linear-gradient(135deg, #0078FF 0%, #0056b3 100%); display: flex; align-items: center; justify-content: center; width: auto; padding: 0 25px; border-radius: 12px; color: white; text-decoration: none; font-weight: bold; font-size: 1.1rem; font-family: 'Space Grotesk', sans-serif; height: 55px; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 8px 20px rgba(0, 120, 255, 0.4); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                                <i class="fas fa-fire" style="margin-right: 10px; font-size: 1.4rem;"></i> MediaFire
+                            </a>
 
+                            <a href="https://pixeldrain.dev/api/file/7mfjfkPV?download" target="_blank"
+                                onclick="trackDownload()" class="dl-btn" style="background: linear-gradient(135deg, #00b894 0%, #00876b 100%); display: flex; align-items: center; justify-content: center; width: auto; padding: 0 25px; border-radius: 12px; color: white; text-decoration: none; font-weight: bold; font-size: 1.1rem; font-family: 'Space Grotesk', sans-serif; height: 55px; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 8px 20px rgba(0, 184, 148, 0.4); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                                <i class="fas fa-tint" style="margin-right: 10px; font-size: 1.4rem;"></i> PixelDrain
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -214,15 +208,15 @@
             </div>
             
             <div class="footer-links">
-                <a href="#">Terms & Conditions</a>
+                <a href="javascript:void(0)" onclick="openDmcaModal()">Terms & Conditions</a>
                 <span class="separator">|</span>
-                <a href="#">Privacy Policy</a>
+                <a href="javascript:void(0)" onclick="openDmcaModal()">Privacy Policy</a>
                 <span class="separator">|</span>
-                <a href="#">About Us</a>
+                <a href="javascript:void(0)" onclick="openDmcaModal()">About Us</a>
                 <span class="separator">|</span>
                 <a href="javascript:void(0)" onclick="openDmcaModal()">DMCA</a>
                 <span class="separator">|</span>
-                <a href="#">Contact Us</a>
+                <a href="javascript:void(0)" onclick="openDmcaModal()">Contact Us</a>
             </div>
             
             <div class="footer-disclaimer">
@@ -242,17 +236,7 @@
 
         // Fetch current download count on load
         document.addEventListener('DOMContentLoaded', () => {
-            // OTT App Downloads
-            fetch('https://api.counterapi.dev/v1/omnixempire/downloads/')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('download-count').innerText = data.count || 0;
-                })
-                .catch(error => {
-                    console.error('Error fetching count:', error);
-                    document.getElementById('download-count').innerText = "0";
-                });
-
+            // Download count has been removed
         });
 
         // Track a new download
