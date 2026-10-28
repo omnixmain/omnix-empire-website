@@ -1,29 +1,8 @@
-# Welcome to your Lovable project
+# OMNIX EMPIRE — Official Website
 
-This project was built with [Lovable](https://lovable.dev).
+Ye repo ka root seedha ready website hai (index.html + assets + images).
+Cloudflare Pages / GitHub Pages / Netlify par **bina build command** ke chal jaati hai:
+- Build command: (khaali)
+- Output directory: `/`
 
-## Build with Lovable
-
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+`source/` folder mein poora editable code hai (Lovable project).
