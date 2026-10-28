@@ -28,7 +28,7 @@ function useReveal() {
   useEffect(() => {
     const io = new IntersectionObserver(
       (es) => es.forEach((e) => e.isIntersecting && e.target.classList.add("in")),
-      { threshold: 0.12 },
+      { threshold: 0, rootMargin: "0px 0px -5% 0px" },
     );
     document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
     return () => io.disconnect();
@@ -56,7 +56,7 @@ function Background() {
 
 function Feature({ icon, title, text, hot }: { icon: ReactNode; title: string; text?: string | undefined; hot?: boolean | undefined }) {
   return (
-    <div className="glass group rounded-2xl p-5 transition duration-300 hover:-translate-y-1 hover:border-primary/50">
+    <div className="group rounded-2xl border border-border bg-card/80 p-5 transition duration-300 hover:-translate-y-1 hover:border-primary/50">
       <div className={`mb-3 grid h-11 w-11 place-items-center rounded-xl ${hot ? "bg-hot text-accent-foreground" : "bg-gold text-primary-foreground"}`}>{icon}</div>
       <div className="font-semibold">{title}</div>
       {text && <p className="mt-1 text-sm text-muted-foreground">{text}</p>}
