@@ -1,0 +1,157 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system definition.
+ *
+ * The @theme inline block maps CSS custom properties to Tailwind utility
+ * classes (e.g. --color-primary -> bg-primary, text-primary).
+ *
+ * The :root and .dark blocks define the actual color values using oklch.
+ * All colors MUST use oklch format.
+ *
+ * To add a new semantic color:
+ * 1. Add the variable to :root (light value) and .dark (dark value)
+ * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ */
+
+@theme inline {
+  --font-display: "Cinzel", serif;
+  --font-sans: "Outfit", sans-serif;
+  --color-gold-light: var(--gold-light);
+  --color-gold-deep: var(--gold-deep);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 1rem;
+  --background: oklch(0.12 0.01 80);
+  --foreground: oklch(0.96 0.02 90);
+  --card: oklch(0.17 0.015 80);
+  --card-foreground: oklch(0.96 0.02 90);
+  --popover: oklch(0.17 0.015 80);
+  --popover-foreground: oklch(0.96 0.02 90);
+  --primary: oklch(0.8 0.14 85);
+  --primary-foreground: oklch(0.15 0.02 80);
+  --secondary: oklch(0.22 0.02 80);
+  --secondary-foreground: oklch(0.96 0.02 90);
+  --muted: oklch(0.22 0.015 80);
+  --muted-foreground: oklch(0.7 0.03 85);
+  --accent: oklch(0.63 0.25 12);
+  --accent-foreground: oklch(0.98 0 0);
+  --destructive: oklch(0.6 0.24 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.8 0.14 85 / 18%);
+  --input: oklch(0.8 0.14 85 / 25%);
+  --ring: oklch(0.8 0.14 85);
+  --chart-1: oklch(0.8 0.14 85);
+  --chart-2: oklch(0.63 0.25 12);
+  --chart-3: oklch(0.6 0.15 240);
+  --chart-4: oklch(0.7 0.15 150);
+  --chart-5: oklch(0.7 0.15 50);
+  --sidebar: oklch(0.17 0.015 80);
+  --sidebar-foreground: oklch(0.96 0.02 90);
+  --sidebar-primary: oklch(0.8 0.14 85);
+  --sidebar-primary-foreground: oklch(0.15 0.02 80);
+  --sidebar-accent: oklch(0.22 0.02 80);
+  --sidebar-accent-foreground: oklch(0.96 0.02 90);
+  --sidebar-border: oklch(0.8 0.14 85 / 18%);
+  --sidebar-ring: oklch(0.8 0.14 85);
+  --gold-light: oklch(0.92 0.1 92);
+  --gold-deep: oklch(0.62 0.13 70);
+  --gradient-gold: linear-gradient(120deg, var(--gold-deep), var(--gold-light) 45%, var(--primary) 60%, var(--gold-deep));
+  --gradient-hot: linear-gradient(135deg, var(--accent), oklch(0.5 0.22 0));
+  --shadow-gold: 0 20px 60px -20px color-mix(in oklab, var(--primary) 55%, transparent);
+  --shadow-hot: 0 20px 60px -20px color-mix(in oklab, var(--accent) 60%, transparent);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+}
+
+@utility text-gold {
+  background: var(--gradient-gold);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine 6s linear infinite;
+}
+@utility bg-gold { background: var(--gradient-gold); background-size: 200% auto; animation: shine 6s linear infinite; }
+@utility bg-hot { background: var(--gradient-hot); }
+@utility shadow-gold { box-shadow: var(--shadow-gold); }
+@utility shadow-hot { box-shadow: var(--shadow-hot); }
+@utility glass {
+  background: color-mix(in oklab, var(--card) 60%, transparent);
+  backdrop-filter: blur(18px);
+  border: 1px solid var(--border);
+}
+@utility animate-float { animation: float 6s ease-in-out infinite; }
+@utility animate-spin-slow { animation: spin 40s linear infinite; }
+@utility animate-blob { animation: blob 18s ease-in-out infinite; }
+@utility animate-rise { animation: rise 1s cubic-bezier(.2,.7,.2,1) both; }
+
+@keyframes shine { to { background-position: 200% center; } }
+@keyframes float { 50% { transform: translateY(-14px); } }
+@keyframes blob {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33% { transform: translate(8vw,-6vh) scale(1.2); }
+  66% { transform: translate(-6vw,8vh) scale(.9); }
+}
+@keyframes rise { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
+@keyframes twinkle { 50% { opacity: .15; } }
+
+.star { position: absolute; border-radius: 9999px; background: var(--gold-light); animation: twinkle 3s ease-in-out infinite; }
+.reveal { opacity: 0; transform: translateY(40px); transition: all .9s cubic-bezier(.2,.7,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-sans); }
