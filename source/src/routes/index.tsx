@@ -198,8 +198,8 @@ function Index() {
         id="om18x" hot img={om18xLogo.url} name="OM18X" tag="100% Free • No Subscription • No Login"
         desc="Fully free video streaming with top models and worldwide categories in high quality. Adults only (18+)."
         badges={["18+ ONLY", "NEW RELEASE", "100% FREE"]}
-        stats={[["Size", "11.37 MB"], ["Version", "v1.0"], ["Release", "15-10-2026"], ["Access", "Free"]]}
-        link="https://www.mediafire.com/file/twmh7cbxd35n7nq/OM18X_v1.0_2026-10-15.apk/file"
+        stats={[["Size", "11.37 MB"], ["Version", "v1.1"], ["Release", "04-11-2026"], ["Access", "Free"]]}
+        link="https://www.mediafire.com/file/qto2lkwf4udgixv/OM18X_v1.1_2026-11-04.apk/file"
         onDownload={ageGate}
         features={[
           { icon: <Gift className="h-5 w-5" />, title: "100% Fully Free", text: "No subscriptions, no fees." },
