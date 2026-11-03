@@ -181,8 +181,8 @@ function Index() {
         id="ott" img={ottLogo.url} name="OMNIX OTT" tag="The Ultimate All-in-One Entertainment Hub"
         desc="Movies, TV Shows, Live TV, Sports, Anime and more — on Mobile, Tablet, Firestick and Android TV."
         badges={["LIVE NOW", "FEATURED"]}
-        stats={[["Size", "31.5 MB"], ["Version", "3.4.1 (37)"], ["Update", "29-10-2026"]]}
-        link="https://www.mediafire.com/file/akfi9qi27tpwiq3/OMNIX_OTT_v37_3.4.1_Release_29-10-2026.apk/file"
+        stats={[["Size", "31.5 MB"], ["Version", "3.4.1 (37)"], ["Update", "03-11-2026"]]}
+        link="https://www.mediafire.com/file/ctm5t406l4dwop1/OMNIX_OTT_v37_3.4.1_Release_03-11-2026.apk/file"
         features={[
           { icon: <Film className="h-5 w-5" />, title: "15000+ Movies, Series & Shows" },
           { icon: <Tv className="h-5 w-5" />, title: "Live TV Channels & Events" },
