@@ -181,8 +181,8 @@ function Index() {
         id="ott" img={ottLogo.url} name="OMNIX OTT" tag="The Ultimate All-in-One Entertainment Hub"
         desc="Movies, TV Shows, Live TV, Sports, Anime and more — on Mobile, Tablet, Firestick and Android TV."
         badges={["LIVE NOW", "FEATURED"]}
-        stats={[["Size", "31.5 MB"], ["Version", "3.4.1 (37)"], ["Update", "03-11-2026"]]}
-        link="https://www.mediafire.com/file/ctm5t406l4dwop1/OMNIX_OTT_v37_3.4.1_Release_03-11-2026.apk/file"
+        stats={[["Size", "31.5 MB"], ["Version", "3.4.1 (37)"], ["Update", "10-11-2026"]]}
+        link="https://www.mediafire.com/file/fxr0yx9ztj65eif/OMNIX_OTT_v37_3.4.1_Release_10-11-2026.apk/file"
         features={[
           { icon: <Film className="h-5 w-5" />, title: "15000+ Movies, Series & Shows" },
           { icon: <Tv className="h-5 w-5" />, title: "Live TV Channels & Events" },
@@ -198,8 +198,8 @@ function Index() {
         id="om18x" hot img={om18xLogo.url} name="OM18X" tag="100% Free • No Subscription • No Login"
         desc="Fully free video streaming with top models and worldwide categories in high quality. Adults only (18+)."
         badges={["18+ ONLY", "NEW RELEASE", "100% FREE"]}
-        stats={[["Size", "11.37 MB"], ["Version", "v1.1"], ["Release", "04-11-2026"], ["Access", "Free"]]}
-        link="https://www.mediafire.com/file/qto2lkwf4udgixv/OM18X_v1.1_2026-11-04.apk/file"
+        stats={[["Size", "11.37 MB"], ["Version", "v1.2"], ["Release", "10-11-2026"], ["Access", "Free"]]}
+        link="https://www.mediafire.com/file/iq8ov5xfj11mmqu/OM18X_v1.2_2026-11-10.apk/file"
         onDownload={ageGate}
         features={[
           { icon: <Gift className="h-5 w-5" />, title: "100% Fully Free", text: "No subscriptions, no fees." },
