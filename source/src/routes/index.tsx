@@ -244,7 +244,7 @@ function Index() {
         desc="Movies, TV Shows, Live TV, Sports, Anime and more — on Mobile, Tablet, Firestick and Android TV."
         badges={["LIVE NOW", "FEATURED"]}
         stats={[["Size", "31.6 MB"], ["Version", "3.4.2 (38)"], ["Update", "16-11-2026"]]}
-        link="https://www.mediafire.com/file/kkcfxwtsxnm4qt8/OMNIX_OTT_v38_3.4.2_Release_16-11-2026.apk/file"
+        link="https://github.com/omnixmain/omnix-empire-website/releases/download/v3.4.2/OMNIX_OTT_v38_3.4.2_Release_16-11-2026.apk"
         features={[
           { icon: <Film className="h-5 w-5" />, title: "15000+ Movies, Series & Shows" },
           { icon: <Tv className="h-5 w-5" />, title: "Live TV Channels & Events" },

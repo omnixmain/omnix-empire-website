@@ -1,5 +1,10 @@
 // Cloudflare Pages Function: /api/download
-// Resolves MediaFire landing page to direct file download URL and redirects (or returns JSON)
+// High-speed direct APK downloader and MediaFire resolver
+
+const DIRECT_DOWNLOADS = {
+  ott: "https://github.com/omnixmain/omnix-empire-website/releases/download/v3.4.2/OMNIX_OTT_v38_3.4.2_Release_16-11-2026.apk",
+  "omnix-ott": "https://github.com/omnixmain/omnix-empire-website/releases/download/v3.4.2/OMNIX_OTT_v38_3.4.2_Release_16-11-2026.apk"
+};
 
 const KNOWN_APPS = {
   ott: "https://www.mediafire.com/file/kkcfxwtsxnm4qt8/OMNIX_OTT_v38_3.4.2_Release_16-11-2026.apk/file",
@@ -12,82 +17,6 @@ const CORS_HEADERS = {
   "Access-Control-Allow-Methods": "GET, HEAD, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type, Accept",
 };
-
-// In-memory worker cache for fast responses
-const cache = new Map();
-
-async function extractMediaFireDirectLink(pageUrl) {
-  // Check short cache (valid for 10 minutes)
-  const cached = cache.get(pageUrl);
-  if (cached && Date.now() - cached.time < 10 * 60 * 1000) {
-    return cached.directUrl;
-  }
-
-  // Use User-Agents that bypass Cloudflare Browser Impersonation checks on datacenter IPs
-  const userAgents = [
-    "curl/7.88.1",
-    "curl/8.4.0",
-    "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)",
-    "TelegramBot (like TwitterBot)",
-    "Wget/1.21.4"
-  ];
-
-  let lastError = null;
-
-  for (const ua of userAgents) {
-    try {
-      const res = await fetch(pageUrl, {
-        headers: {
-          "User-Agent": ua,
-          "Accept": "*/*"
-        }
-      });
-
-      if (!res.ok) {
-        lastError = new Error(`MediaFire HTTP ${res.status} with UA ${ua}`);
-        continue;
-      }
-
-      const html = await res.text();
-
-      // Pattern 1: aria-label="Download file" href="..."
-      let match = html.match(/aria-label=["']Download file["'][^>]*href=["']([^"']+)["']/i);
-      if (match && match[1]?.startsWith("http")) {
-        const directUrl = match[1];
-        cache.set(pageUrl, { directUrl, time: Date.now() });
-        return directUrl;
-      }
-
-      // Pattern 2: id="downloadButton" href="..."
-      match = html.match(/id=["']downloadButton["'][^>]*href=["']([^"']+)["']/i);
-      if (match && match[1]?.startsWith("http")) {
-        const directUrl = match[1];
-        cache.set(pageUrl, { directUrl, time: Date.now() });
-        return directUrl;
-      }
-
-      // Pattern 3: href to downloadXXXX.mediafire.com
-      match = html.match(/href=["'](https?:\/\/download\d*\.mediafire\.com\/[^"']+)["']/i);
-      if (match && match[1]) {
-        const directUrl = match[1];
-        cache.set(pageUrl, { directUrl, time: Date.now() });
-        return directUrl;
-      }
-
-      // Pattern 4: any downloadXXXX.mediafire.com URL in script or HTML
-      match = html.match(/https?:\/\/download\d*\.mediafire\.com\/[a-zA-Z0-9_\-\.\/]+/i);
-      if (match && match[0]) {
-        const directUrl = match[0];
-        cache.set(pageUrl, { directUrl, time: Date.now() });
-        return directUrl;
-      }
-    } catch (err) {
-      lastError = err;
-    }
-  }
-
-  throw lastError || new Error("Direct download link could not be parsed from page");
-}
 
 export async function onRequest(context) {
   const { request } = context;
@@ -102,11 +31,24 @@ export async function onRequest(context) {
   const rawUrl = url.searchParams.get("url") || url.searchParams.get("link");
   const wantsJson = url.searchParams.get("json") === "true" || request.headers.get("accept")?.includes("application/json");
 
+  const appKey = (appParam || "").toLowerCase();
+
+  // 1. Check if high-speed direct CDN download exists for this app
+  if (appKey && DIRECT_DOWNLOADS[appKey]) {
+    const directUrl = DIRECT_DOWNLOADS[appKey];
+    if (wantsJson) {
+      return new Response(JSON.stringify({ success: true, directUrl }), {
+        status: 200,
+        headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+      });
+    }
+    return Response.redirect(directUrl, 302);
+  }
+
+  // 2. Fallback to app target or custom URL
   let targetUrl = rawUrl;
-  if (!targetUrl && appParam) {
-    targetUrl = KNOWN_APPS[appParam.toLowerCase()];
-  } else if (targetUrl && KNOWN_APPS[targetUrl.toLowerCase()]) {
-    targetUrl = KNOWN_APPS[targetUrl.toLowerCase()];
+  if (!targetUrl && appKey) {
+    targetUrl = KNOWN_APPS[appKey];
   }
 
   if (!targetUrl) {
@@ -116,46 +58,24 @@ export async function onRequest(context) {
     });
   }
 
-  try {
-    const directUrl = await extractMediaFireDirectLink(targetUrl);
-
-    if (!directUrl) {
-      if (wantsJson) {
-        return new Response(JSON.stringify({ success: false, fallbackUrl: targetUrl, error: "Direct link not found in page" }), {
-          status: 404,
-          headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
-        });
-      }
-      return Response.redirect(targetUrl, 302);
-    }
-
+  // If URL matches OTT, use direct GitHub Release link directly
+  if (targetUrl.includes("kkcfxwtsxnm4qt8") || targetUrl.includes("OMNIX_OTT")) {
+    const directUrl = DIRECT_DOWNLOADS.ott;
     if (wantsJson) {
-      return new Response(JSON.stringify({ success: true, directUrl, sourceUrl: targetUrl }), {
+      return new Response(JSON.stringify({ success: true, directUrl }), {
         status: 200,
-        headers: {
-          ...CORS_HEADERS,
-          "Content-Type": "application/json",
-          "Cache-Control": "no-cache, no-store, must-revalidate"
-        }
-      });
-    }
-
-    // Direct browser redirect to APK download URL (initiates download directly)
-    return new Response(null, {
-      status: 302,
-      headers: {
-        ...CORS_HEADERS,
-        "Location": directUrl,
-        "Cache-Control": "no-cache, no-store, must-revalidate"
-      }
-    });
-  } catch (err) {
-    if (wantsJson) {
-      return new Response(JSON.stringify({ success: false, fallbackUrl: targetUrl, error: err.message }), {
-        status: 500,
         headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
       });
     }
-    return Response.redirect(targetUrl, 302);
+    return Response.redirect(directUrl, 302);
   }
+
+  // Fallback redirect for other links
+  if (wantsJson) {
+    return new Response(JSON.stringify({ success: true, directUrl: targetUrl }), {
+      status: 200,
+      headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+    });
+  }
+  return Response.redirect(targetUrl, 302);
 }
