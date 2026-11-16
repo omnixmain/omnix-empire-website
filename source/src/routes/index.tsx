@@ -75,6 +75,10 @@ function AppCard(props: {
   const [downloadSuccess, setDownloadSuccess] = useState(false);
 
   const handleDownloadClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (typeof window !== "undefined" && (window as any).startOmnixDownload) {
+      (window as any).startOmnixDownload(e, props.name, props.link, props.onDownload);
+      return;
+    }
     if (props.onDownload) {
       props.onDownload(e);
       if (e.defaultPrevented) return;

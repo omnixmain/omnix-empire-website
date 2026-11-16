@@ -13,38 +13,80 @@ const CORS_HEADERS = {
   "Access-Control-Allow-Headers": "Content-Type, Accept",
 };
 
-async function extractMediaFireDirectLink(pageUrl) {
-  const res = await fetch(pageUrl, {
-    headers: {
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-      "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-      "Accept-Language": "en-US,en;q=0.9"
-    }
-  });
+// In-memory worker cache for fast responses
+const cache = new Map();
 
-  if (!res.ok) {
-    throw new Error(`MediaFire HTTP ${res.status}`);
+async function extractMediaFireDirectLink(pageUrl) {
+  // Check short cache (valid for 10 minutes)
+  const cached = cache.get(pageUrl);
+  if (cached && Date.now() - cached.time < 10 * 60 * 1000) {
+    return cached.directUrl;
   }
 
-  const html = await res.text();
+  // Use User-Agents that bypass Cloudflare Browser Impersonation checks on datacenter IPs
+  const userAgents = [
+    "curl/7.88.1",
+    "curl/8.4.0",
+    "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)",
+    "TelegramBot (like TwitterBot)",
+    "Wget/1.21.4"
+  ];
 
-  // Pattern 1: aria-label="Download file" href="..."
-  let match = html.match(/aria-label=["']Download file["'][^>]*href=["']([^"']+)["']/i);
-  if (match && match[1]?.startsWith("http")) return match[1];
+  let lastError = null;
 
-  // Pattern 2: id="downloadButton" href="..."
-  match = html.match(/id=["']downloadButton["'][^>]*href=["']([^"']+)["']/i);
-  if (match && match[1]?.startsWith("http")) return match[1];
+  for (const ua of userAgents) {
+    try {
+      const res = await fetch(pageUrl, {
+        headers: {
+          "User-Agent": ua,
+          "Accept": "*/*"
+        }
+      });
 
-  // Pattern 3: href to downloadXXXX.mediafire.com
-  match = html.match(/href=["'](https?:\/\/download\d*\.mediafire\.com\/[^"']+)["']/i);
-  if (match && match[1]) return match[1];
+      if (!res.ok) {
+        lastError = new Error(`MediaFire HTTP ${res.status} with UA ${ua}`);
+        continue;
+      }
 
-  // Pattern 4: any downloadXXXX.mediafire.com URL in script or HTML
-  match = html.match(/https?:\/\/download\d*\.mediafire\.com\/[a-zA-Z0-9_\-\.\/]+/i);
-  if (match && match[0]) return match[0];
+      const html = await res.text();
 
-  return null;
+      // Pattern 1: aria-label="Download file" href="..."
+      let match = html.match(/aria-label=["']Download file["'][^>]*href=["']([^"']+)["']/i);
+      if (match && match[1]?.startsWith("http")) {
+        const directUrl = match[1];
+        cache.set(pageUrl, { directUrl, time: Date.now() });
+        return directUrl;
+      }
+
+      // Pattern 2: id="downloadButton" href="..."
+      match = html.match(/id=["']downloadButton["'][^>]*href=["']([^"']+)["']/i);
+      if (match && match[1]?.startsWith("http")) {
+        const directUrl = match[1];
+        cache.set(pageUrl, { directUrl, time: Date.now() });
+        return directUrl;
+      }
+
+      // Pattern 3: href to downloadXXXX.mediafire.com
+      match = html.match(/href=["'](https?:\/\/download\d*\.mediafire\.com\/[^"']+)["']/i);
+      if (match && match[1]) {
+        const directUrl = match[1];
+        cache.set(pageUrl, { directUrl, time: Date.now() });
+        return directUrl;
+      }
+
+      // Pattern 4: any downloadXXXX.mediafire.com URL in script or HTML
+      match = html.match(/https?:\/\/download\d*\.mediafire\.com\/[a-zA-Z0-9_\-\.\/]+/i);
+      if (match && match[0]) {
+        const directUrl = match[0];
+        cache.set(pageUrl, { directUrl, time: Date.now() });
+        return directUrl;
+      }
+    } catch (err) {
+      lastError = err;
+    }
+  }
+
+  throw lastError || new Error("Direct download link could not be parsed from page");
 }
 
 export async function onRequest(context) {
