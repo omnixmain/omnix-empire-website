@@ -3,6 +3,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import {
   Send, Download, Film, Tv, Trophy, Gauge, PictureInPicture2, MonitorSmartphone, LogIn,
   Gift, UserX, Globe, Users, PlayCircle, Smartphone, Flame, Crown, Shield, Camera as Instagram, PlaySquare as Youtube, X,
+  Loader2, CheckCircle2,
 } from "lucide-react";
 import logo from "@/assets/omnix-empire-logo.jpg.asset.json";
 import ottLogo from "@/assets/omnix-ott-logo.png.asset.json";
@@ -13,7 +14,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "OMNIX EMPIRE | Official Home of OMNIX OTT & OM18X" },
-      { name: "description", content: "Official OMNIX EMPIRE website. Download OMNIX OTT v3.4.1 and OM18X, and join our Telegram channels." },
+      { name: "description", content: "Official OMNIX EMPIRE website. Download OMNIX OTT v3.4.2 and OM18X, and join our Telegram channels." },
       { property: "og:title", content: "OMNIX EMPIRE | Rule Your Entertainment" },
       { property: "og:description", content: "Download OMNIX OTT & OM18X — official OMNIX EMPIRE apps for Android, TV and Firestick." },
     ],
@@ -70,6 +71,48 @@ function AppCard(props: {
   onDownload?: (e: React.MouseEvent) => void;
 }) {
   const { hot } = props;
+  const [downloading, setDownloading] = useState(false);
+  const [downloadSuccess, setDownloadSuccess] = useState(false);
+
+  const handleDownloadClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (props.onDownload) {
+      props.onDownload(e);
+      if (e.defaultPrevented) return;
+    }
+    e.preventDefault();
+
+    if (downloading) return;
+    setDownloading(true);
+    setDownloadSuccess(false);
+
+    try {
+      const res = await fetch(`/api/download?url=${encodeURIComponent(props.link)}&json=true`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      if (data && data.success && data.directUrl) {
+        const a = document.createElement("a");
+        a.href = data.directUrl;
+        a.setAttribute("download", "");
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setDownloadSuccess(true);
+        setTimeout(() => {
+          setDownloading(false);
+          setDownloadSuccess(false);
+        }, 4000);
+        return;
+      }
+      throw new Error(data?.error || "Direct link not resolved");
+    } catch {
+      // Fallback: trigger direct 302 download endpoint which automatically redirects to direct file
+      window.location.href = `/api/download?url=${encodeURIComponent(props.link)}`;
+      setTimeout(() => {
+        setDownloading(false);
+      }, 3500);
+    }
+  };
+
   return (
     <section id={props.id} className="reveal mx-auto max-w-6xl px-5 py-20">
       <div className={`glass relative overflow-hidden rounded-[2rem] p-6 md:p-12 ${hot ? "shadow-hot" : "shadow-gold"}`}>
@@ -95,9 +138,24 @@ function AppCard(props: {
                 </div>
               ))}
             </div>
-            <a href={props.link} target="_blank" rel="noreferrer" onClick={props.onDownload}
-              className={`mt-7 inline-flex items-center gap-3 rounded-full px-8 py-4 text-lg font-bold transition hover:scale-105 ${hot ? "bg-hot text-accent-foreground shadow-hot" : "bg-gold text-primary-foreground shadow-gold"}`}>
-              <Download className="h-5 w-5" /> Download {props.name}
+            <a href={`/api/download?url=${encodeURIComponent(props.link)}`} target="_blank" rel="noreferrer" onClick={handleDownloadClick}
+              className={`mt-7 inline-flex items-center gap-3 rounded-full px-8 py-4 text-lg font-bold transition hover:scale-105 ${hot ? "bg-hot text-accent-foreground shadow-hot" : "bg-gold text-primary-foreground shadow-gold"} ${downloading ? "opacity-90" : ""}`}>
+              {downloading ? (
+                <>
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                  <span>{downloadSuccess ? "Starting Download..." : "Getting Direct Link..."}</span>
+                </>
+              ) : downloadSuccess ? (
+                <>
+                  <CheckCircle2 className="h-5 w-5" />
+                  <span>Download Started!</span>
+                </>
+              ) : (
+                <>
+                  <Download className="h-5 w-5" />
+                  <span>Download {props.name}</span>
+                </>
+              )}
             </a>
           </div>
         </div>
@@ -181,8 +239,8 @@ function Index() {
         id="ott" img={ottLogo.url} name="OMNIX OTT" tag="The Ultimate All-in-One Entertainment Hub"
         desc="Movies, TV Shows, Live TV, Sports, Anime and more — on Mobile, Tablet, Firestick and Android TV."
         badges={["LIVE NOW", "FEATURED"]}
-        stats={[["Size", "31.5 MB"], ["Version", "3.4.1 (37)"], ["Update", "10-11-2026"]]}
-        link="https://www.mediafire.com/file/fxr0yx9ztj65eif/OMNIX_OTT_v37_3.4.1_Release_10-11-2026.apk/file"
+        stats={[["Size", "31.6 MB"], ["Version", "3.4.2 (38)"], ["Update", "16-11-2026"]]}
+        link="https://www.mediafire.com/file/kkcfxwtsxnm4qt8/OMNIX_OTT_v38_3.4.2_Release_16-11-2026.apk/file"
         features={[
           { icon: <Film className="h-5 w-5" />, title: "15000+ Movies, Series & Shows" },
           { icon: <Tv className="h-5 w-5" />, title: "Live TV Channels & Events" },

@@ -1,0 +1,14 @@
+{
+  "status": "success",
+  "app_name": "OMNIX OTT",
+  "application_id": "com.omnixempire.ott",
+  "version_code": 38,
+  "version_name": "3.4.2",
+  "official_website": "https://omnixempire.pages.dev/",
+  "official_telegram": "https://t.me/omnixempire",
+  "download_url": "https://www.mediafire.com/file/kkcfxwtsxnm4qt8/OMNIX_OTT_v38_3.4.2_Release_16-11-2026.apk/file",
+  "direct_download_url": "https://omnixempire.pages.dev/api/download?app=ott",
+  "force_update": false,
+  "title": "New Update Available",
+  "message": "OMNIX OTT v3.4.2 (Build 38) is now available. Update now to enjoy the latest features, performance improvements and bug fixes."
+}
