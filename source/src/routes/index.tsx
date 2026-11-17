@@ -150,8 +150,10 @@ function AppCard(props: {
                   <span>Direct Download</span>
                 </a>
                 <a href={props.mirrorLink} target="_blank" rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-primary/40 px-6 py-4 text-base font-semibold transition hover:scale-105 glass hover:bg-primary/10 text-foreground">
-                  <Download className="h-5 w-5" />
+                  className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-7 py-3.5 text-base md:text-lg font-bold transition hover:scale-105 glass hover:bg-white/15 text-foreground shadow-lg">
+                  <span className="inline-flex items-center justify-center rounded-lg bg-white px-2.5 py-1 shadow-sm shrink-0">
+                    <img src="https://static.mediafire.com/images/backgrounds/header/mf_logo_full_color.svg" alt="MediaFire" className="h-4.5 w-auto object-contain" />
+                  </span>
                   <span>MediaFire</span>
                 </a>
               </div>
