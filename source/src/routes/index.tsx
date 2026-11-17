@@ -150,9 +150,12 @@ function AppCard(props: {
                   <span>Direct Download</span>
                 </a>
                 <a href={props.mirrorLink} target="_blank" rel="noreferrer"
-                  className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-7 py-3.5 text-base md:text-lg font-bold transition hover:scale-105 glass hover:bg-white/15 text-foreground shadow-lg">
-                  <span className="inline-flex items-center justify-center rounded-lg bg-white px-2.5 py-1 shadow-sm shrink-0">
-                    <img src="https://static.mediafire.com/images/backgrounds/header/mf_logo_full_color.svg" alt="MediaFire" className="h-4.5 w-auto object-contain" />
+                  className="inline-flex items-center gap-3 rounded-full border border-primary/50 px-8 py-4 text-lg font-bold transition hover:scale-105 glass hover:bg-primary/10 text-foreground shadow-lg">
+                  <span className="grid h-6 w-6 place-items-center rounded-full bg-white shadow shrink-0">
+                    <svg className="h-4 w-4" viewBox="0 0 76 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M21.91,9.26a51.47,51.47,0,0,1,9.33,1c2.91.54,5.85,1.55,8.83,1.54,2.28,0,4.12-1.59,4.11-3.53S42.32,4.7,40,4.71a13.35,13.35,0,0,0-3.9.65c.33-.24.66-.48,1-.69A26.14,26.14,0,0,1,52.19,1C57.81,1.26,63.66,3,68,6.72a19.89,19.89,0,0,1,6.62,17.82A19.75,19.75,0,0,1,62.45,39.62,24,24,0,0,1,48,40.14c-6.21-1.57-11.64-5-17.48-7.53a46.86,46.86,0,0,0-10.57-2.68H20a9,9,0,0,0,4.11-.7c1.73-.83,1.72-2.83.82-4.29-1.07-1.74-3.23-2.45-5.09-3a24.36,24.36,0,0,0-10-.49A15.06,15.06,0,0,0,3,23.94,5.67,5.67,0,0,0,1.2,26.16c3.08-8.54,9.2-7.58,13-9.92a2.16,2.16,0,0,0-1.57-3.93,7.24,7.24,0,0,0-2.92,1.46l-.86.65S11.9,9.26,21.91,9.26Z" fill="#0077FF" />
+                      <path d="M57.3,14c-4.08,0-5.76,2.57-10.18,5-7.65,4.18-12.2,2.4-12.2,2.62s3.1,1.53,10.7,5.22A27,27,0,0,0,57.35,30h0a8,8,0,1,0,0-16Z" fill="#FFFFFF" />
+                    </svg>
                   </span>
                   <span>MediaFire</span>
                 </a>
