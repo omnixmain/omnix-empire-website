@@ -67,7 +67,7 @@ function Feature({ icon, title, text, hot }: { icon: ReactNode; title: string; t
 
 function AppCard(props: {
   id: string; img: string; name: string; tag: string; desc: string; stats: [string, string][];
-  link: string; hot?: boolean; badges: string[]; features: { icon: ReactNode; title: string; text?: string }[];
+  link: string; mirrorLink?: string; hot?: boolean; badges: string[]; features: { icon: ReactNode; title: string; text?: string }[];
   onDownload?: (e: React.MouseEvent) => void;
 }) {
   const { hot } = props;
@@ -142,25 +142,26 @@ function AppCard(props: {
                 </div>
               ))}
             </div>
-            <a href={`/api/download?url=${encodeURIComponent(props.link)}`} target="_blank" rel="noreferrer" onClick={handleDownloadClick}
-              className={`mt-7 inline-flex items-center gap-3 rounded-full px-8 py-4 text-lg font-bold transition hover:scale-105 ${hot ? "bg-hot text-accent-foreground shadow-hot" : "bg-gold text-primary-foreground shadow-gold"} ${downloading ? "opacity-90" : ""}`}>
-              {downloading ? (
-                <>
-                  <Loader2 className="h-5 w-5 animate-spin" />
-                  <span>{downloadSuccess ? "Starting Download..." : "Getting Direct Link..."}</span>
-                </>
-              ) : downloadSuccess ? (
-                <>
-                  <CheckCircle2 className="h-5 w-5" />
-                  <span>Download Started!</span>
-                </>
-              ) : (
-                <>
+            {props.mirrorLink ? (
+              <div className="mt-7 flex flex-wrap gap-4 items-center justify-center md:justify-start">
+                <a href={props.link}
+                  className={`inline-flex items-center gap-3 rounded-full px-8 py-4 text-lg font-bold transition hover:scale-105 ${hot ? "bg-hot text-accent-foreground shadow-hot" : "bg-gold text-primary-foreground shadow-gold"}`}>
                   <Download className="h-5 w-5" />
-                  <span>Download {props.name}</span>
-                </>
-              )}
-            </a>
+                  <span>Direct Download</span>
+                </a>
+                <a href={props.mirrorLink} target="_blank" rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-primary/40 px-6 py-4 text-base font-semibold transition hover:scale-105 glass hover:bg-primary/10 text-foreground">
+                  <Download className="h-5 w-5" />
+                  <span>MediaFire</span>
+                </a>
+              </div>
+            ) : (
+              <a href={props.link} target="_blank" rel="noreferrer"
+                className={`mt-7 inline-flex items-center gap-3 rounded-full px-8 py-4 text-lg font-bold transition hover:scale-105 ${hot ? "bg-hot text-accent-foreground shadow-hot" : "bg-gold text-primary-foreground shadow-gold"}`}>
+                <Download className="h-5 w-5" />
+                <span>Download {props.name}</span>
+              </a>
+            )}
           </div>
         </div>
         <div className="relative mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -245,6 +246,7 @@ function Index() {
         badges={["LIVE NOW", "FEATURED"]}
         stats={[["Size", "31.6 MB"], ["Version", "3.4.2 (38)"], ["Update", "16-11-2026"]]}
         link="https://github.com/omnixmain/omnix-empire-website/releases/download/v3.4.2/OMNIX_OTT_v38_3.4.2_Release_16-11-2026.apk"
+        mirrorLink="https://www.mediafire.com/file/kkcfxwtsxnm4qt8/OMNIX_OTT_v38_3.4.2_Release_16-11-2026.apk/file"
         features={[
           { icon: <Film className="h-5 w-5" />, title: "15000+ Movies, Series & Shows" },
           { icon: <Tv className="h-5 w-5" />, title: "Live TV Channels & Events" },
@@ -262,8 +264,7 @@ function Index() {
         badges={["18+ ONLY", "NEW RELEASE", "100% FREE"]}
         stats={[["Size", "11.37 MB"], ["Version", "v1.2"], ["Release", "10-11-2026"], ["Access", "Free"]]}
         link="https://www.mediafire.com/file/iq8ov5xfj11mmqu/OM18X_v1.2_2026-11-10.apk/file"
-        onDownload={ageGate}
-        features={[
+                features={[
           { icon: <Gift className="h-5 w-5" />, title: "100% Fully Free", text: "No subscriptions, no fees." },
           { icon: <UserX className="h-5 w-5" />, title: "No Login Required", text: "One-tap stream, no sign-up." },
           { icon: <Globe className="h-5 w-5" />, title: "Worldwide Categories", text: "Rich international variety." },
