@@ -3,7 +3,6 @@ import { useEffect, useState, type ReactNode } from "react";
 import {
   Send, Download, Film, Tv, Trophy, Gauge, PictureInPicture2, MonitorSmartphone, LogIn,
   Gift, UserX, Globe, Users, PlayCircle, Smartphone, Flame, Crown, Shield, Camera as Instagram, PlaySquare as Youtube, X,
-  Loader2, CheckCircle2,
 } from "lucide-react";
 import logo from "@/assets/omnix-empire-logo.jpg.asset.json";
 import ottLogo from "@/assets/omnix-ott-logo.png.asset.json";
@@ -67,56 +66,10 @@ function Feature({ icon, title, text, hot }: { icon: ReactNode; title: string; t
 
 function AppCard(props: {
   id: string; img: string; name: string; tag: string; desc: string; stats: [string, string][];
-  link: string; mirrorLink?: string; hot?: boolean; badges: string[]; features: { icon: ReactNode; title: string; text?: string }[];
+  link: string; link2?: string; link2Label?: string; hot?: boolean; badges: string[]; features: { icon: ReactNode; title: string; text?: string }[];
   onDownload?: (e: React.MouseEvent) => void;
 }) {
   const { hot } = props;
-  const [downloading, setDownloading] = useState(false);
-  const [downloadSuccess, setDownloadSuccess] = useState(false);
-
-  const handleDownloadClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (typeof window !== "undefined" && (window as any).startOmnixDownload) {
-      (window as any).startOmnixDownload(e, props.name, props.link, props.onDownload);
-      return;
-    }
-    if (props.onDownload) {
-      props.onDownload(e);
-      if (e.defaultPrevented) return;
-    }
-    e.preventDefault();
-
-    if (downloading) return;
-    setDownloading(true);
-    setDownloadSuccess(false);
-
-    try {
-      const res = await fetch(`/api/download?url=${encodeURIComponent(props.link)}&json=true`);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      if (data && data.success && data.directUrl) {
-        const a = document.createElement("a");
-        a.href = data.directUrl;
-        a.setAttribute("download", "");
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        setDownloadSuccess(true);
-        setTimeout(() => {
-          setDownloading(false);
-          setDownloadSuccess(false);
-        }, 4000);
-        return;
-      }
-      throw new Error(data?.error || "Direct link not resolved");
-    } catch {
-      // Fallback: trigger direct 302 download endpoint which automatically redirects to direct file
-      window.location.href = `/api/download?url=${encodeURIComponent(props.link)}`;
-      setTimeout(() => {
-        setDownloading(false);
-      }, 3500);
-    }
-  };
-
   return (
     <section id={props.id} className="reveal mx-auto max-w-6xl px-5 py-20">
       <div className={`glass relative overflow-hidden rounded-[2rem] p-6 md:p-12 ${hot ? "shadow-hot" : "shadow-gold"}`}>
@@ -142,31 +95,18 @@ function AppCard(props: {
                 </div>
               ))}
             </div>
-            {props.mirrorLink ? (
-              <div className="mt-7 flex flex-wrap gap-4 items-center justify-center md:justify-start">
-                <a href={props.link}
-                  className={`inline-flex items-center gap-3 rounded-full px-8 py-4 text-lg font-bold transition hover:scale-105 ${hot ? "bg-hot text-accent-foreground shadow-hot" : "bg-gold text-primary-foreground shadow-gold"}`}>
-                  <Download className="h-5 w-5" />
-                  <span>Direct Download</span>
-                </a>
-                <a href={props.mirrorLink} target="_blank" rel="noreferrer"
-                  className="inline-flex items-center gap-3 rounded-full border border-primary/50 px-8 py-4 text-lg font-bold transition hover:scale-105 glass hover:bg-primary/10 text-foreground shadow-lg">
-                  <span className="grid h-6 w-6 place-items-center rounded-full bg-white shadow shrink-0">
-                    <svg className="h-4 w-4" viewBox="0 0 76 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M21.91,9.26a51.47,51.47,0,0,1,9.33,1c2.91.54,5.85,1.55,8.83,1.54,2.28,0,4.12-1.59,4.11-3.53S42.32,4.7,40,4.71a13.35,13.35,0,0,0-3.9.65c.33-.24.66-.48,1-.69A26.14,26.14,0,0,1,52.19,1C57.81,1.26,63.66,3,68,6.72a19.89,19.89,0,0,1,6.62,17.82A19.75,19.75,0,0,1,62.45,39.62,24,24,0,0,1,48,40.14c-6.21-1.57-11.64-5-17.48-7.53a46.86,46.86,0,0,0-10.57-2.68H20a9,9,0,0,0,4.11-.7c1.73-.83,1.72-2.83.82-4.29-1.07-1.74-3.23-2.45-5.09-3a24.36,24.36,0,0,0-10-.49A15.06,15.06,0,0,0,3,23.94,5.67,5.67,0,0,0,1.2,26.16c3.08-8.54,9.2-7.58,13-9.92a2.16,2.16,0,0,0-1.57-3.93,7.24,7.24,0,0,0-2.92,1.46l-.86.65S11.9,9.26,21.91,9.26Z" fill="#0077FF" />
-                      <path d="M57.3,14c-4.08,0-5.76,2.57-10.18,5-7.65,4.18-12.2,2.4-12.2,2.62s3.1,1.53,10.7,5.22A27,27,0,0,0,57.35,30h0a8,8,0,1,0,0-16Z" fill="#FFFFFF" />
-                    </svg>
-                  </span>
-                  <span>MediaFire</span>
-                </a>
-              </div>
-            ) : (
-              <a href={props.link} target="_blank" rel="noreferrer"
-                className={`mt-7 inline-flex items-center gap-3 rounded-full px-8 py-4 text-lg font-bold transition hover:scale-105 ${hot ? "bg-hot text-accent-foreground shadow-hot" : "bg-gold text-primary-foreground shadow-gold"}`}>
-                <Download className="h-5 w-5" />
-                <span>Download {props.name}</span>
+            <div className="mt-7 flex flex-wrap justify-center gap-4 md:justify-start">
+              <a href={props.link} target="_blank" rel="noreferrer" onClick={props.onDownload}
+                className={`inline-flex items-center gap-3 rounded-full px-8 py-4 text-lg font-bold transition hover:scale-105 ${hot ? "bg-hot text-accent-foreground shadow-hot" : "bg-gold text-primary-foreground shadow-gold"}`}>
+                <Download className="h-5 w-5" /> Download {props.name}
               </a>
-            )}
+              {props.link2 && (
+                <a href={props.link2} target="_blank" rel="noreferrer" onClick={props.onDownload}
+                  className={`inline-flex items-center gap-3 rounded-full border px-8 py-4 text-lg font-bold transition hover:scale-105 ${hot ? "border-accent/60 text-accent hover:bg-accent/10" : "border-primary/60 text-primary hover:bg-primary/10"}`}>
+                  <Download className="h-5 w-5" /> {props.link2Label ?? "Mirror"}
+                </a>
+              )}
+            </div>
           </div>
         </div>
         <div className="relative mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -251,7 +191,8 @@ function Index() {
         badges={["LIVE NOW", "FEATURED"]}
         stats={[["Size", "31.6 MB"], ["Version", "3.4.2 (38)"], ["Update", "16-11-2026"]]}
         link="https://github.com/omnixmain/omnix-empire-website/releases/download/v3.4.2/OMNIX_OTT_v38_3.4.2_Release_16-11-2026.apk"
-        mirrorLink="https://www.mediafire.com/file/kkcfxwtsxnm4qt8/OMNIX_OTT_v38_3.4.2_Release_16-11-2026.apk/file"
+        link2="https://www.mediafire.com/file/kkcfxwtsxnm4qt8/OMNIX_OTT_v38_3.4.2_Release_16-11-2026.apk/file"
+        link2Label="MediaFire Mirror"
         features={[
           { icon: <Film className="h-5 w-5" />, title: "15000+ Movies, Series & Shows" },
           { icon: <Tv className="h-5 w-5" />, title: "Live TV Channels & Events" },
@@ -269,7 +210,8 @@ function Index() {
         badges={["18+ ONLY", "NEW RELEASE", "100% FREE"]}
         stats={[["Size", "11.37 MB"], ["Version", "v1.2"], ["Release", "10-11-2026"], ["Access", "Free"]]}
         link="https://www.mediafire.com/file/iq8ov5xfj11mmqu/OM18X_v1.2_2026-11-10.apk/file"
-                features={[
+        onDownload={ageGate}
+        features={[
           { icon: <Gift className="h-5 w-5" />, title: "100% Fully Free", text: "No subscriptions, no fees." },
           { icon: <UserX className="h-5 w-5" />, title: "No Login Required", text: "One-tap stream, no sign-up." },
           { icon: <Globe className="h-5 w-5" />, title: "Worldwide Categories", text: "Rich international variety." },
