@@ -2,13 +2,13 @@
 // High-speed direct APK downloader and MediaFire resolver
 
 const DIRECT_DOWNLOADS = {
-  ott: "https://github.com/omnixmain/omnix-empire-website/releases/download/v3.4.2/OMNIX_OTT_v38_3.4.2_Release_19-11-2026.apk",
-  "omnix-ott": "https://github.com/omnixmain/omnix-empire-website/releases/download/v3.4.2/OMNIX_OTT_v38_3.4.2_Release_19-11-2026.apk"
+  ott: "https://github.com/omnixmain/omnix-empire-website/releases/download/v3.4.2/OMNIX_OTT_v38_3.4.2_Release_19-11-2026-1.apk",
+  "omnix-ott": "https://github.com/omnixmain/omnix-empire-website/releases/download/v3.4.2/OMNIX_OTT_v38_3.4.2_Release_19-11-2026-1.apk"
 };
 
 const KNOWN_APPS = {
-  ott: "https://www.mediafire.com/file/nscwqatt4zhupni/OMNIX_OTT_v38_3.4.2_Release_19-11-2026.apk/file",
-  "omnix-ott": "https://www.mediafire.com/file/nscwqatt4zhupni/OMNIX_OTT_v38_3.4.2_Release_19-11-2026.apk/file",
+  ott: "https://www.mediafire.com/file/pi4k9xoqrb43bg3/OMNIX_OTT_v38_3.4.2_Release_19-11-2026-1.apk/file",
+  "omnix-ott": "https://www.mediafire.com/file/pi4k9xoqrb43bg3/OMNIX_OTT_v38_3.4.2_Release_19-11-2026-1.apk/file",
   om18x: "https://www.mediafire.com/file/iq8ov5xfj11mmqu/OM18X_v1.2_2026-11-10.apk/file"
 };
 
@@ -59,7 +59,7 @@ export async function onRequest(context) {
   }
 
   // If URL matches OTT, use direct GitHub Release link directly
-  if (targetUrl.includes("nscwqatt4zhupni") || targetUrl.includes("9nuweqr7xkvk462") || targetUrl.includes("kkcfxwtsxnm4qt8") || targetUrl.includes("OMNIX_OTT")) {
+  if (targetUrl.includes("pi4k9xoqrb43bg3") || targetUrl.includes("nscwqatt4zhupni") || targetUrl.includes("9nuweqr7xkvk462") || targetUrl.includes("kkcfxwtsxnm4qt8") || targetUrl.includes("OMNIX_OTT")) {
     const directUrl = DIRECT_DOWNLOADS.ott;
     if (wantsJson) {
       return new Response(JSON.stringify({ success: true, directUrl }), {
